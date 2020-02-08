@@ -1,0 +1,11 @@
+.idea/
+build/
+out/
+.gradle/
+*.iml
+*.db
+*.txt
+*.log
+bin/
+**/application-local.properties
+__snapshots__
