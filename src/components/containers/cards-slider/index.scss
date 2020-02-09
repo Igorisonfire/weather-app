@@ -1,0 +1,35 @@
+@import '~@styles/variables/colors';
+@import '~@styles/tools/transitions';
+
+.card-slider-wrapper{
+  width: 100%;
+
+  .buttons-wrapper{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .card-line-wrapper{
+    width: 100%;
+    border: 1px solid red;
+    overflow: hidden;
+
+    .card-line{
+      width: 100%;
+      display: flex;
+      border: 1px solid green;
+      @include transition-card;
+
+      &>*{
+        width: calc(100% / 3 - (24px - 24px/3));
+        min-width: calc(100% / 3 - (24px - 24px/3));
+      }
+
+      &>*:not(:last-child){
+        margin-right: 24px;
+      }
+    }
+  }
+
+}

@@ -1,0 +1,23 @@
+@import '~@styles/variables/colors';
+@import '~@styles/tools/transitions';
+@import '~@styles/tools/shadows';
+
+.weather-card-wrapper{
+  display: flex;
+
+  input{
+    display: none;
+
+    &:checked + label{
+      border: 1px solid red;
+    }
+  }
+
+  .card{
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    background-color: #FFFFFF;
+    @include box-shadow(2)
+  }
+}
