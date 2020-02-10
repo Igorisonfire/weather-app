@@ -1,23 +1,22 @@
 import * as React from 'react';
 import {connect} from 'react-redux';
+import {Dispatch} from "redux";
 import Container from '@material-ui/core/Container';
 
 import {IMapServicesToProps, withService} from "../../hoc-helpers/with-service";
 import {IService} from "../../../services/model";
-import {ISwapiService} from "../../../services/swapi-service/model";
-
 import './index.scss';
 import {IRootAppReducerState} from "../../../reducer/model";
-import IPeople from "../../../reducers/people/model";
-import {Dispatch} from "redux";
-import {getPeople} from "../../../actions/get-people";
 import CheckboxGroup from "../checkbox-group";
 import {WeatherCard} from "../../presentational/weather-card";
 import CardSlider from "../cards-slider";
+import {IWeatherService} from "../../../services/weather-service/model";
+import IWeather from "../../../reducers/weather/model";
+import {getWeather} from "../../../actions/get-weather";
 
 interface IProps {
-    swapiService: ISwapiService;
-    people: IPeople.Model;
+    weatherService: IWeatherService;
+    weatherState: IWeather.ModelState
     dispatch: Dispatch
 }
 
@@ -31,9 +30,28 @@ interface ISizes {
 
 class Home extends React.Component<IProps, IState> {
 
+    componentDidMount(): void {
+        this.getWeather()
+    }
+
+    private getWeather = async () => {
+        try {
+            const response = await this.props.weatherService.getWeather();
+
+            const weatherObj: IWeather.ModelAPI = response.list;
+            this.props.dispatch(getWeather(weatherObj));
+
+            console.log(response)
+        } catch (err) {
+            console.error(err);
+        }
+    };
 
 
     render() {
+
+
+        console.log(this.props.weatherState)
         return (
             <Container className={'home-container'}>
                 <CheckboxGroup/>
@@ -50,9 +68,9 @@ class Home extends React.Component<IProps, IState> {
     }
 }
 
-const mapServicesToProps: IMapServicesToProps = ({ swapiService }: IService) => ({ swapiService });
+const mapServicesToProps: IMapServicesToProps = ({ weatherService }: IService) => ({ weatherService });
 
-const mapStateToProps = ({ people }: IRootAppReducerState) => ({ people });
+const mapStateToProps = ({ weatherState }: IRootAppReducerState) => ({ weatherState });
 
 export default connect(mapStateToProps)(
     withService(mapServicesToProps)(Home)

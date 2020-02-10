@@ -6,4 +6,8 @@ export default class Paths {
     static Swapi = class {
         static GetPeople = (id: number) => base(`people/${id}`);
     };
+
+    static Weather = class  {
+        static GetWeather = () => base(`data/2.5/forecast?q=Munich,de&APPID=75f972b80e26f14fe6c920aa6a85ad57&cnt=40`)
+    }
 }
