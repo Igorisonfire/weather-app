@@ -1,3 +1,3 @@
 export interface IWeatherService {
-    getWeather(): any,
+    getWeather(units: string): any,
 }

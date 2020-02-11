@@ -1,5 +1,6 @@
 import IWeather from "./model";
 import {GET_WEATHER} from "../../actions/types";
+import moment from 'moment'
 
 const initState: IWeather.ModelState = {
     weather: null

@@ -6,9 +6,9 @@ namespace IWeather {
     }
 
     export interface WeatherSegment {
-        dt: number
         main: Main
         weather: Weather[]
+        dt_txt: string
     }
 
     export interface Main {
