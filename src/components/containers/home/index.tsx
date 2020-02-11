@@ -12,7 +12,7 @@ import {WeatherCard} from "../../presentational/weather-card";
 import CardSlider from "../cards-slider";
 import {IWeatherService} from "../../../services/weather-service/model";
 import IWeather from "../../../reducers/weather/model";
-import {getWeather} from "../../../actions/get-weather";
+import {setWeather} from "../../../actions/set-weather";
 
 interface IProps {
     weatherService: IWeatherService;
@@ -38,7 +38,7 @@ class Home extends React.Component<IProps, IState> {
         try {
             // imperial or metric
             const response = await this.props.weatherService.getWeather('metric');
-            this.props.dispatch(getWeather(response));
+            this.props.dispatch(setWeather(response));
         } catch (err) {
             console.error(err);
         }

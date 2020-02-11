@@ -29,13 +29,30 @@ namespace IWeather {
         description: string
         icon: string
     }
+    
+    
+    export interface WeatherDay {
+        maxTemp: number
+        minTemp: number
+        maxInfo: {
+            icon: string,
+            description: string
+        }
+        day: string
+        segments: IWeather.WeatherSegment[]
+    }
+    
+    
+    export interface NewModel {
+       list: WeatherDay[]
+    }
 
     export interface Model extends ModelAPI {
 
     }
 
     export interface ModelState {
-        weather: Maybe<Model>
+        weather: Maybe<NewModel>
     }
 }
 
