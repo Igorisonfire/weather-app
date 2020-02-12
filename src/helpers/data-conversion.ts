@@ -1,4 +1,3 @@
-import moment from 'moment'
 import IWeather from '../reducers/weather/model'
 import {dateToDay} from './string-helpers'
 

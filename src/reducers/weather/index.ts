@@ -7,7 +7,8 @@ const initState: IWeather.ModelState = {
     weatherListImperial: null,
     weatherListMetric: null,
     weatherListToMap: null,
-    unitOfMeasure: 'imperial'
+    unitOfMeasure: 'imperial',
+    unit: '°F'
 };
 
 const weatherReducer = (state = initState, action: any) => {
@@ -30,17 +31,21 @@ const weatherReducer = (state = initState, action: any) => {
         case SET_UNIT_OF_MEASURE: {
 
             let listToMap: Maybe<IWeather.WeatherDay[]> = []
+            let unit: string = ''
 
             if(action.payload === 'imperial'){
                 listToMap = state.weatherListImperial
+                unit = '°F'
             } else if(action.payload === 'metric'){
                 listToMap = state.weatherListMetric
+                unit = '°C'
             }
 
             return {
                 ...state,
                 unitOfMeasure: action.payload,
-                weatherListToMap: listToMap
+                weatherListToMap: listToMap,
+                unit: unit
             };
         }
         default:

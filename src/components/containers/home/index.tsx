@@ -21,7 +21,7 @@ interface IProps {
 }
 
 interface IState extends ISizes{
-
+    tabIndex: number
 }
 
 interface ISizes {
@@ -29,6 +29,10 @@ interface ISizes {
 }
 
 class Home extends React.Component<IProps, IState> {
+
+    state: IState = {
+        tabIndex: 0
+    }
 
     componentDidMount(): void {
         this.getWeather()
@@ -47,12 +51,20 @@ class Home extends React.Component<IProps, IState> {
         }
     };
 
+    private tapCard = (index: number) => {
+        this.setState({
+            tabIndex: index
+        })
+    }
+
 
     render() {
 
         console.log(this.props.weatherState)
 
         const weather = this.props.weatherState.weatherListToMap
+        const unit = this.props.weatherState.unit
+        const tabIndex = this.state.tabIndex
 
         if(!weather) return null
 
@@ -61,19 +73,26 @@ class Home extends React.Component<IProps, IState> {
                 <CheckboxGroup/>
 
                 <CardSlider>
-                    {weather && weather.map((item: IWeather.WeatherDay, i: number) => (
+                    {weather && weather.map((item: IWeather.WeatherDay, index: number) => (
                         <WeatherCard
-                            key={i}
+                            key={index}
                             day={item.day}
                             maxTemp={item.maxTemp}
                             minTemp={item.minTemp}
                             description={item.maxInfo.description}
                             icon={item.maxInfo.icon}
+                            unit={unit}
+                            onClick={() => this.tapCard(index)}
+                            checked={tabIndex === index}
                         />
                     ))}
                 </CardSlider>
 
-
+                <div className={'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'}>
+                    {weather && weather[tabIndex].segments.map((segment: IWeather.WeatherSegment, index: number) => (
+                        <p key={index}>{segment.main.temp+unit}</p>
+                    ))}
+                </div>
             </Container>
         )
     }

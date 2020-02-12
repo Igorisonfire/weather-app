@@ -51,6 +51,7 @@ namespace IWeather {
         weatherListMetric: Maybe<WeatherDay[]>
         weatherListToMap: Maybe<WeatherDay[]>
         unitOfMeasure: string
+        unit: string
     }
 }
 

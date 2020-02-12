@@ -1,9 +1,9 @@
 import * as React from 'react';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import CardMedia from '@material-ui/core/CardMedia';
+import moment from 'moment'
 
 import './index.scss';
 
@@ -13,17 +13,26 @@ interface IProps {
     minTemp: number
     icon: string
     description: string
+    unit: string
+    onClick(): void
+    checked: boolean
 }
 
-export const WeatherCard = ({day, maxTemp, minTemp, icon, description}: IProps) => {
+export const WeatherCard = ({day, maxTemp, minTemp, icon, description, unit, onClick, checked}: IProps) => {
     return (
-        <Card className={''}>
+        <Card className={''} elevation={5} variant={`outlined`} onClick={onClick}>
+            {checked && <div style={{width: 50, height: 50, backgroundColor: 'red'}}/>}
             <CardContent>
-                <img src={`http://openweathermap.org/img/wn/${icon}@2x.png`} alt=''/>
-                <Typography variant="h5" component="h2" gutterBottom>{day}</Typography>
-                <Typography variant="h5" component="h2" gutterBottom>{description}</Typography>
-                <Typography variant="body2" component="p">Max: {maxTemp}</Typography>
-                <Typography variant="body2" component="p">Min: {minTemp}</Typography>
+                <CardMedia
+                    component="img"
+                    image={`http://openweathermap.org/img/wn/${icon}@2x.png`}
+                />
+                <Typography variant="h5" component="h2" align={'center'} color={'primary'}
+                            gutterBottom>{moment(day).format('dddd')}</Typography>
+                <Typography variant="body2" component="p" align={'center'} color="textSecondary"
+                            gutterBottom>{description}</Typography>
+                <Typography variant="body2" component="p"
+                            align={'center'}>{Math.round(minTemp) + unit} &mdash; {Math.round(maxTemp) + unit}</Typography>
             </CardContent>
         </Card>
     );
