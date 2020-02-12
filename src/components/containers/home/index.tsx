@@ -36,9 +36,12 @@ class Home extends React.Component<IProps, IState> {
 
     private getWeather = async () => {
         try {
-            // imperial or metric
-            const response = await this.props.weatherService.getWeather('metric');
-            this.props.dispatch(setWeather(response));
+            const responseImperial = await this.props.weatherService.getWeather('imperial');
+            const responseMetric = await this.props.weatherService.getWeather('metric');
+            this.props.dispatch(setWeather({
+                imperial: responseImperial,
+                metric: responseMetric
+            }));
         } catch (err) {
             console.error(err);
         }
@@ -46,9 +49,13 @@ class Home extends React.Component<IProps, IState> {
 
 
     render() {
+
+        console.log(this.props.weatherState)
+
         return (
             <Container className={'home-container'}>
                 <CheckboxGroup/>
+
 
                 <CardSlider>
                     <WeatherCard number={1}/>

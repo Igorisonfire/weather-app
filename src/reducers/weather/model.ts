@@ -41,18 +41,16 @@ namespace IWeather {
         day: string
         segments: IWeather.WeatherSegment[]
     }
-    
-    
-    export interface NewModel {
-       list: WeatherDay[]
-    }
 
     export interface Model extends ModelAPI {
 
     }
 
     export interface ModelState {
-        weather: Maybe<NewModel>
+        weatherListImperial: Maybe<WeatherDay[]>
+        weatherListMetric: Maybe<WeatherDay[]>
+        weatherListToMap: Maybe<WeatherDay[]>
+        unitOfMeasure: string
     }
 }
 

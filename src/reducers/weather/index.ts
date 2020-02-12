@@ -1,78 +1,47 @@
 import IWeather from "./model";
-import {SET_WEATHER} from "../../actions/types";
+import {SET_WEATHER, SET_UNIT_OF_MEASURE} from "../../actions/types";
 import {dateToDay} from '../../helpers/string-helpers'
+import {weatherDataConversion} from '../../helpers/data-conversion'
+import {Maybe} from '../../toolbox/custom-types'
 
 const initState: IWeather.ModelState = {
-    weather: null
+    weatherListImperial: null,
+    weatherListMetric: null,
+    weatherListToMap: null,
+    unitOfMeasure: 'imperial'
 };
 
 const weatherReducer = (state = initState, action: any) => {
     switch (action.type) {
         case SET_WEATHER: {
 
-            const mainWeatherData = action.payload
-            let daysObj: any = {}
+            const weatherDataImperial = action.payload.imperial
+            const weatherDataMetric = action.payload.metric
 
-            // Create a weather object by day
-            mainWeatherData.list.reduce((prev: IWeather.WeatherSegment[], item: IWeather.WeatherSegment) => {
-
-                const filtered = prev.filter((itemPrev: IWeather.WeatherSegment) => {
-                    return dateToDay(itemPrev.dt_txt) === dateToDay(item.dt_txt)
-                })
-
-                if (!(dateToDay(item.dt_txt) in daysObj)) {
-                    daysObj[dateToDay(item.dt_txt)] = {
-                        day: item.dt_txt,
-                        segments: filtered.concat(item)
-                    };
-
-                    return prev.filter((itemPrev: IWeather.WeatherSegment) => {
-                        return dateToDay(itemPrev.dt_txt) !== dateToDay(item.dt_txt)
-                    })
-                }
-
-                if (dateToDay(item.dt_txt) in daysObj) {
-                    daysObj[dateToDay(item.dt_txt)].segments.push(item)
-
-                    return prev;
-                }
-
-                return prev.concat(item);
-            }, [])
-
-            //Make an array of objects
-            const startDaysArr: any = Object.values(daysObj)
-
-            //Collect a new array with the necessary fields
-            const finalDaysArr = startDaysArr.map((item: IWeather.WeatherDay) => {
-
-                let maxTemp = item.segments[0].main.temp
-                let minTemp = item.segments[0].main.temp
-                let maxInfo = {}
-
-                item.segments.forEach((nextItem: IWeather.WeatherSegment) => {
-                    if (nextItem.main.temp > maxTemp) {
-                        maxTemp = nextItem.main.temp;
-                        maxInfo = {
-                            icon: nextItem.weather[0].icon,
-                            description: nextItem.weather[0].description
-                        }
-                    } else if (nextItem.main.temp < minTemp) {
-                        minTemp = nextItem.main.temp;
-                    }
-                })
-
-                return{
-                    maxTemp,
-                    minTemp,
-                    maxInfo,
-                    ...item
-                }
-            })
+            const finalImperialData = weatherDataConversion(weatherDataImperial)
+            const finalMetricData = weatherDataConversion(weatherDataMetric)
 
             return {
                 ...state,
-                weather: finalDaysArr
+                weatherListImperial: finalImperialData,
+                weatherListMetric: finalMetricData,
+                weatherListToMap: finalImperialData,
+            };
+        }
+        case SET_UNIT_OF_MEASURE: {
+
+            let listToMap: Maybe<IWeather.WeatherDay[]> = []
+
+            if(action.payload === 'imperial'){
+                listToMap = state.weatherListImperial
+            } else if(action.payload === 'metric'){
+                listToMap = state.weatherListMetric
+            }
+
+            return {
+                ...state,
+                unitOfMeasure: action.payload,
+                weatherListToMap: listToMap
             };
         }
         default:
