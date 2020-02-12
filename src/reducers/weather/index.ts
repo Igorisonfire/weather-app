@@ -1,6 +1,5 @@
 import IWeather from "./model";
 import {SET_WEATHER, SET_UNIT_OF_MEASURE} from "../../actions/types";
-import {dateToDay} from '../../helpers/string-helpers'
 import {weatherDataConversion} from '../../helpers/data-conversion'
 import {Maybe} from '../../toolbox/custom-types'
 

@@ -52,18 +52,28 @@ class Home extends React.Component<IProps, IState> {
 
         console.log(this.props.weatherState)
 
+        const weather = this.props.weatherState.weatherListToMap
+
+        if(!weather) return null
+
         return (
             <Container className={'home-container'}>
                 <CheckboxGroup/>
 
-
                 <CardSlider>
-                    <WeatherCard number={1}/>
-                    <WeatherCard number={2}/>
-                    <WeatherCard number={3}/>
-                    <WeatherCard number={4}/>
-                    <WeatherCard number={5}/>
+                    {weather && weather.map((item: IWeather.WeatherDay, i: number) => (
+                        <WeatherCard
+                            key={i}
+                            day={item.day}
+                            maxTemp={item.maxTemp}
+                            minTemp={item.minTemp}
+                            description={item.maxInfo.description}
+                            icon={item.maxInfo.icon}
+                        />
+                    ))}
                 </CardSlider>
+
+
             </Container>
         )
     }

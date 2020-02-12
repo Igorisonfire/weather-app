@@ -46,7 +46,7 @@ export const weatherDataConversion = (weatherData: IWeather.ModelAPI) => {
         let maxInfo = {}
 
         item.segments.forEach((nextItem: IWeather.WeatherSegment) => {
-            if (nextItem.main.temp > maxTemp) {
+            if (nextItem.main.temp >= maxTemp) {
                 maxTemp = nextItem.main.temp;
                 maxInfo = {
                     icon: nextItem.weather[0].icon,
