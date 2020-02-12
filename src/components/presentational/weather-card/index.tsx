@@ -20,8 +20,7 @@ interface IProps {
 
 export const WeatherCard = ({day, maxTemp, minTemp, icon, description, unit, onClick, checked}: IProps) => {
     return (
-        <Card className={''} elevation={5} variant={`outlined`} onClick={onClick}>
-            {checked && <div style={{width: 50, height: 50, backgroundColor: 'red'}}/>}
+        <Card className={''} elevation={3} variant={checked ? 'outlined' : 'elevation'} onClick={onClick}>
             <CardContent>
                 <CardMedia
                     component="img"
