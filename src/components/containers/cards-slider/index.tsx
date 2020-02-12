@@ -132,7 +132,7 @@ export default class CardSlider extends React.Component<IProps, IState> {
                     </IconButton>}
                 </div>
                 <div className={'card-line-wrapper'}>
-                    <div className={'card-line'} id={'card-line'} style={{transform:  `translateX(${this.state.translate}px)`}}>
+                    <div className={'card-line'} id={'card-line'} style={{transform: `translateX(${this.state.translate}px)`}}>
                         {this.props.children}
                     </div>
                 </div>
