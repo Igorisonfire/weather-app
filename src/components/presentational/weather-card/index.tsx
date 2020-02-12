@@ -22,10 +22,7 @@ export const WeatherCard = ({day, maxTemp, minTemp, icon, description, unit, onC
     return (
         <Card className={''} elevation={3} variant={checked ? 'outlined' : 'elevation'} onClick={onClick}>
             <CardContent>
-                <CardMedia
-                    component="img"
-                    image={`http://openweathermap.org/img/wn/${icon}@2x.png`}
-                />
+                <img src={`http://openweathermap.org/img/wn/${icon}@2x.png`} alt=''/>
                 <Typography variant="h5" component="h2" align={'center'} color={'primary'}
                             gutterBottom>{moment(day).format('dddd')}</Typography>
                 <Typography variant="body2" component="p" align={'center'} color="textSecondary"

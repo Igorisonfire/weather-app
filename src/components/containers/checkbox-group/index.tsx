@@ -37,12 +37,12 @@ class CheckboxGroup extends React.Component<IProps, IState> {
         return (
             <RadioGroup color={'primary'} className={'checkbox-group-wrapper'} row={true} aria-label="unit-of-measure"
                         name="unit-of-measure" value={this.state.value} onChange={this.handleChange}>
-                <Grid container spacing={3}>
+                <Grid container spacing={0}>
                     <Grid item xs={6}
                           container
                           justify="center"
                           alignItems="center">
-                        <FormControlLabel value="metric" control={<Radio color="primary"/>} label="Celcius"/>
+                        <FormControlLabel value="metric" control={<Radio size={'medium'} color="primary"/>} label="Celcius"/>
                     </Grid>
                     <Grid item xs={6}
                           container

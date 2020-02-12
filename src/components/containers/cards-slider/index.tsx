@@ -2,6 +2,7 @@ import * as React from 'react';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import IconButton from '@material-ui/core/IconButton';
+import { debounce } from 'lodash'
 
 import './index.scss';
 
@@ -38,7 +39,7 @@ export default class CardSlider extends React.Component<IProps, IState> {
 
     componentDidMount(): void {
         this.sliderFunc();
-        window.addEventListener('resize', this.sliderFunc, false);
+        window.addEventListener('resize', debounce(this.sliderFunc, 500));
     }
 
     private sliderFunc = () => {
