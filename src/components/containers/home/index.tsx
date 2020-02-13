@@ -21,6 +21,8 @@ import {dateToTime} from '../../../helpers/string-helpers'
 import IUi from '../../../reducers/ui/model'
 import {setSliderTabIndex} from '../../../actions/set-slider-tab-index'
 import {preloaderGlobalState} from '../../../helpers/preloader-global-helper'
+import {cleanWeather} from '../../../actions/clean-weather'
+import {resetSliderTabIndex} from '../../../actions/reset-slider-tab-index'
 
 interface IProps {
     weatherService: IWeatherService
@@ -80,6 +82,11 @@ class Home extends React.Component<IProps, IState> {
         }
     }
 
+    componentWillUnmount(): void {
+        this.props.dispatch(cleanWeather())
+        this.props.dispatch(resetSliderTabIndex())
+    }
+
 
     render() {
         const weather = this.props.weatherState.weatherListToMap
@@ -91,7 +98,7 @@ class Home extends React.Component<IProps, IState> {
 
         return (
             <Container id={'container'} className={'home-container'}>
-                <Grid container spacing={2}>
+                <Grid container spacing={1}>
                     <Grid item xs={12}>
                         <CheckboxGroup/>
                     </Grid>
@@ -112,14 +119,14 @@ class Home extends React.Component<IProps, IState> {
                             ))}
                         </CardSlider>
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid item xs={12} >
                         <BarChart
                             baseValue={'dataMax'}
                             width={barChartWidth}
                             height={250}
                             data={weather[tabIndex].segments}
                         >
-                            <Bar dataKey='main.temp' fill={"#7986cb"}>
+                            <Bar maxBarSize={200} dataKey='main.temp' fill={"#7986cb"}>
                                 <LabelList
                                     dataKey="main.temp"
                                     position="top"

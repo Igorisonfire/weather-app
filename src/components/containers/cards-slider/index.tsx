@@ -11,6 +11,7 @@ import {withService} from '../../hoc-helpers/with-service'
 import IUi from '../../../reducers/ui/model'
 import {Dispatch} from 'redux'
 import {setSliderTabIndex} from '../../../actions/set-slider-tab-index'
+import {resetSliderTabIndex} from '../../../actions/reset-slider-tab-index'
 
 interface IProps {
     children: React.ReactNode
@@ -127,6 +128,10 @@ class CardSlider extends React.Component<IProps, IState> {
         });
         this.props.dispatch(setSliderTabIndex(sliderTabIndex+1))
     };
+
+    componentWillUnmount(): void {
+        this.props.dispatch(resetSliderTabIndex())
+    }
 
     render() {
         const {tabIndex, itemsCount, sliderSize} = this.state;

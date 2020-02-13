@@ -1,4 +1,4 @@
-import {SET_SLIDER_TAB_INDEX} from "../../actions/types";
+import {SET_SLIDER_TAB_INDEX, RESET_SLIDER_TAB_INDEX} from "../../actions/types";
 import IUi from './model'
 
 const initState: IUi.ModelState = {
@@ -12,6 +12,13 @@ const uiReducer = (state = initState, action: any) => {
             return {
                 ...state,
                 sliderTabIndex: action.payload
+            };
+        }
+        case RESET_SLIDER_TAB_INDEX: {
+
+            return {
+                ...state,
+                sliderTabIndex: 0
             };
         }
         default:

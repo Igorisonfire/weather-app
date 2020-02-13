@@ -1,5 +1,5 @@
 import IWeather from "./model";
-import {SET_WEATHER, SET_UNIT_OF_MEASURE} from "../../actions/types";
+import {SET_WEATHER, SET_UNIT_OF_MEASURE, CLEAN_WEATHER} from "../../actions/types";
 import {weatherDataConversion} from '../../helpers/data-conversion'
 import {Maybe} from '../../toolbox/custom-types'
 
@@ -46,6 +46,17 @@ const weatherReducer = (state = initState, action: any) => {
                 unitOfMeasure: action.payload,
                 weatherListToMap: listToMap,
                 unit: unit
+            };
+        }
+        case CLEAN_WEATHER: {
+
+            return {
+                ...state,
+                weatherListImperial: null,
+                weatherListMetric: null,
+                weatherListToMap: null,
+                unitOfMeasure: 'imperial',
+                unit: '°F'
             };
         }
         default:
