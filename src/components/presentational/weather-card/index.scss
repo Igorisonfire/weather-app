@@ -3,21 +3,12 @@
 @import '~@styles/tools/shadows';
 
 .weather-card-wrapper{
-  display: flex;
 
-  input{
-    display: none;
-
-    &:checked + label{
-      border: 1px solid red;
-    }
-  }
-
-  .card{
-    display: flex;
+  .center{
+    align-items: center;
     flex-direction: column;
-    padding: 24px;
-    background-color: #FFFFFF;
-    @include box-shadow(2)
+    justify-content: center;
+    display: flex;
+    margin-bottom: 12px;
   }
 }

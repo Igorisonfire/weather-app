@@ -2,6 +2,8 @@
 
 [Start Weather App](https://igorisonfire.github.io/weather-app)
 
+![Image of Yaktocat](https://github.com/Igorisonfire/weather-app/tree/master/src/shared/images/preview-weather-app.png)
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.

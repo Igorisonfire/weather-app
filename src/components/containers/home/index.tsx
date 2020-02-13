@@ -2,10 +2,8 @@ import * as React from 'react';
 import {connect} from 'react-redux';
 import {Dispatch} from "redux";
 import Container from '@material-ui/core/Container';
-import {BarChart, Bar, LabelList, XAxis, YAxis, ResponsiveContainer} from 'recharts';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import { debounce } from 'lodash'
+import {BarChart, Bar, LabelList, XAxis, ResponsiveContainer} from 'recharts';
 
 import {IMapServicesToProps, withService} from "../../hoc-helpers/with-service";
 import {IService} from "../../../services/model";
@@ -31,15 +29,7 @@ interface IProps {
     dispatch: Dispatch
 }
 
-interface IState extends ISizes{
-
-}
-
-interface ISizes {
-
-}
-
-class Home extends React.Component<IProps, IState> {
+class Home extends React.Component<IProps, {}> {
 
     componentDidMount(): void {
         this.getWeather()
@@ -126,9 +116,14 @@ class Home extends React.Component<IProps, IState> {
     }
 }
 
-const mapServicesToProps: IMapServicesToProps = ({ weatherService }: IService) => ({ weatherService });
+const mapServicesToProps: IMapServicesToProps = ({ weatherService }: IService) => ({
+    weatherService
+});
 
-const mapStateToProps = ({ weatherState, uiState }: IRootAppReducerState) => ({ weatherState, uiState });
+const mapStateToProps = ({weatherState, uiState }: IRootAppReducerState) => ({
+    weatherState,
+    uiState
+});
 
 export default connect(mapStateToProps)(
     withService(mapServicesToProps)(Home)

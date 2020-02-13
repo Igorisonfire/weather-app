@@ -1,4 +1,6 @@
 import * as React from 'react';
+import {connect} from 'react-redux'
+import {Dispatch} from 'redux'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import IconButton from '@material-ui/core/IconButton';
@@ -6,10 +8,7 @@ import { debounce } from 'lodash'
 
 import './index.scss';
 import {IRootAppReducerState} from '../../../reducer/model'
-import {connect} from 'react-redux'
-import {withService} from '../../hoc-helpers/with-service'
 import IUi from '../../../reducers/ui/model'
-import {Dispatch} from 'redux'
 import {setSliderTabIndex} from '../../../actions/set-slider-tab-index'
 import {resetSliderTabIndex} from '../../../actions/reset-slider-tab-index'
 
@@ -101,7 +100,6 @@ class CardSlider extends React.Component<IProps, IState> {
 
         this.xDown = 0;
     };
-    //---
 
     private prevFunc = () => {
         const {tabIndex, translate, itemWidth, itemsGap} = this.state
@@ -150,7 +148,10 @@ class CardSlider extends React.Component<IProps, IState> {
                     </IconButton>}
                 </div>
                 <div className={'card-line-wrapper'}>
-                    <div className={'card-line'} id={'card-line'} style={{transform: `translateX(${this.state.translate}px)`}}>
+                    <div className={'card-line'}
+                         id={'card-line'}
+                         style={{transform: `translateX(${this.state.translate}px)`}}
+                    >
                         {this.props.children}
                     </div>
                 </div>

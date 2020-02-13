@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
 import {BrowserRouter} from 'react-router-dom';
 import {Provider} from 'react-redux';
 
@@ -15,7 +14,7 @@ import {HelmetSet} from "./components/presentational/helmet-set";
 ReactDOM.render((
     <Provider store={appStore}>
         <ServiceProvider value={service}>
-            <BrowserRouter>
+            <BrowserRouter basename={process.env.PUBLIC_URL}>
                 <HelmetSet/>
                 <App/>
             </BrowserRouter>

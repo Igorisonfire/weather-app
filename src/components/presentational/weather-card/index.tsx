@@ -2,7 +2,7 @@ import * as React from 'react';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import CardMedia from '@material-ui/core/CardMedia';
+import CardActionArea from '@material-ui/core/CardActionArea';
 import moment from 'moment'
 
 import './index.scss';
@@ -20,16 +20,42 @@ interface IProps {
 
 export const WeatherCard = ({day, maxTemp, minTemp, icon, description, unit, onClick, checked}: IProps) => {
     return (
-        <Card className={''} elevation={3} variant={checked ? 'outlined' : 'elevation'} onClick={onClick}>
-            <CardContent>
-                <img src={`http://openweathermap.org/img/wn/${icon}@2x.png`} alt=''/>
-                <Typography variant="h5" component="h2" align={'center'} color={'primary'}
-                            gutterBottom>{moment(day).format('dddd')}</Typography>
-                <Typography variant="body2" component="p" align={'center'} color="textSecondary"
+        <Card className={'weather-card-wrapper'} elevation={3} variant={checked ? 'outlined' : 'elevation'} onClick={onClick}>
+            <CardActionArea>
+                <CardContent>
+                    <div className={'center'}>
+                        <img
+                            className={'weather-image'} src={`http://openweathermap.org/img/wn/${icon}@2x.png`}
+                            alt='weather'/>
+                        <Typography
+                            className={'capitalize'}
+                            variant="body2"
+                            component="p"
+                            align={'center'}
+                            color="textSecondary"
                             gutterBottom>{description}</Typography>
-                <Typography variant="body2" component="p"
-                            align={'center'}>{Math.round(minTemp) + unit} &mdash; {Math.round(maxTemp) + unit}</Typography>
-            </CardContent>
+                    </div>
+                    <Typography
+                        variant="h6"
+                        component="p"
+                        align={'center'}
+                        gutterBottom>{moment(day).format('dddd MMM Do')}</Typography>
+                    {Math.round(minTemp) === Math.round(maxTemp) ?
+                        <Typography
+                            variant="h5"
+                            component="p"
+                            color={'primary'}
+                            align={'center'}>{Math.round(maxTemp) + unit}
+                        </Typography> :
+                        <Typography
+                            variant="h5"
+                            component="p"
+                            color={'primary'}
+                            align={'center'}>{Math.round(minTemp) + unit} &mdash; {Math.round(maxTemp) + unit}
+                        </Typography>
+                    }
+                </CardContent>
+            </CardActionArea>
         </Card>
     );
 };
