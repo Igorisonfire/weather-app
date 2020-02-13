@@ -103,7 +103,7 @@ class Home extends React.Component<IProps, IState> {
                         </CardSlider>
                     </Grid>
                     <Grid item xs={12} >
-                        <ResponsiveContainer width='100%' minHeight={300} aspect={3}>
+                        <ResponsiveContainer width='100%' aspect={3}>
                             <BarChart
                                 baseValue={'dataMax'}
                                 data={weather[tabIndex].segments}
