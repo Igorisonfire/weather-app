@@ -5,9 +5,17 @@ import IconButton from '@material-ui/core/IconButton';
 import { debounce } from 'lodash'
 
 import './index.scss';
+import {IRootAppReducerState} from '../../../reducer/model'
+import {connect} from 'react-redux'
+import {withService} from '../../hoc-helpers/with-service'
+import IUi from '../../../reducers/ui/model'
+import {Dispatch} from 'redux'
+import {setSliderTabIndex} from '../../../actions/set-slider-tab-index'
 
 interface IProps {
     children: React.ReactNode
+    uiState: IUi.ModelState
+    dispatch: Dispatch
 }
 
 interface IState extends ISizes{
@@ -23,7 +31,7 @@ interface ISizes {
     itemsGap: number
 }
 
-export default class CardSlider extends React.Component<IProps, IState> {
+class CardSlider extends React.Component<IProps, IState> {
 
     private xDown: number = 0;
 
@@ -95,7 +103,8 @@ export default class CardSlider extends React.Component<IProps, IState> {
     //---
 
     private prevFunc = () => {
-        const {tabIndex, translate, itemWidth, itemsGap} = this.state;
+        const {tabIndex, translate, itemWidth, itemsGap} = this.state
+        const sliderTabIndex = this.props.uiState.sliderTabIndex
 
         if(!tabIndex) return;
 
@@ -103,10 +112,12 @@ export default class CardSlider extends React.Component<IProps, IState> {
             tabIndex: tabIndex - 1,
             translate: translate + itemWidth + itemsGap
         })
+        this.props.dispatch(setSliderTabIndex(sliderTabIndex-1))
     };
 
     private nextFunc = () => {
-        const {tabIndex, translate, itemWidth, itemsGap, itemsCount, sliderSize} = this.state;
+        const {tabIndex, translate, itemWidth, itemsGap, itemsCount, sliderSize} = this.state
+        const sliderTabIndex = this.props.uiState.sliderTabIndex
 
         if(itemsCount - tabIndex - sliderSize <= 0) return;
 
@@ -114,6 +125,7 @@ export default class CardSlider extends React.Component<IProps, IState> {
             tabIndex: tabIndex + 1,
             translate: translate - itemWidth - itemsGap
         });
+        this.props.dispatch(setSliderTabIndex(sliderTabIndex+1))
     };
 
     render() {
@@ -141,4 +153,8 @@ export default class CardSlider extends React.Component<IProps, IState> {
         )
     }
 }
+const mapStateToProps = ({ uiState }: IRootAppReducerState) => ({ uiState });
+
+export default connect(mapStateToProps)(CardSlider);
+
 

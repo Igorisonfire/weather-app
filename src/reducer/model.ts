@@ -1,9 +1,9 @@
-import IPeople from "../reducers/people/model";
 import IWeather from "../reducers/weather/model";
 import IUi from '../reducers/ui/model'
+import IPreloader from '../reducers/preloader/model'
 
 export interface IRootAppReducerState {
-    people: IPeople.Model,
     weatherState: IWeather.ModelState,
     uiState: IUi.ModelState,
+    preloaderState: IPreloader.ModelState,
 }

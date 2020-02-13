@@ -9,11 +9,9 @@ const uiReducer = (state = initState, action: any) => {
     switch (action.type) {
         case SET_SLIDER_TAB_INDEX: {
 
-
-
             return {
                 ...state,
-                sliderTabIndex: 0
+                sliderTabIndex: action.payload
             };
         }
         default:

@@ -18,15 +18,18 @@ import {IWeatherService} from "../../../services/weather-service/model";
 import IWeather from "../../../reducers/weather/model";
 import {setWeather} from "../../../actions/set-weather";
 import {dateToTime} from '../../../helpers/string-helpers'
+import IUi from '../../../reducers/ui/model'
+import {setSliderTabIndex} from '../../../actions/set-slider-tab-index'
+import {preloaderGlobalState} from '../../../helpers/preloader-global-helper'
 
 interface IProps {
-    weatherService: IWeatherService;
+    weatherService: IWeatherService
     weatherState: IWeather.ModelState
+    uiState: IUi.ModelState
     dispatch: Dispatch
 }
 
 interface IState extends ISizes{
-    tabIndex: number
     barChartWidth: number
 }
 
@@ -37,7 +40,6 @@ interface ISizes {
 class Home extends React.Component<IProps, IState> {
 
     state: IState = {
-        tabIndex: 0,
         barChartWidth: 0
     }
 
@@ -47,23 +49,25 @@ class Home extends React.Component<IProps, IState> {
 
     private getWeather = async () => {
         try {
+            const start = preloaderGlobalState(true, 300);
             const responseImperial = await this.props.weatherService.getWeather('imperial');
             const responseMetric = await this.props.weatherService.getWeather('metric');
             this.props.dispatch(setWeather({
                 imperial: responseImperial,
                 metric: responseMetric
             }));
+            clearTimeout(start);
+            preloaderGlobalState(false, 300);
             this.getContainerWidth()
             window.addEventListener('resize', debounce(this.getContainerWidth, 500));
         } catch (err) {
             console.error(err);
+            preloaderGlobalState(false, 300);
         }
     };
 
     private tapCard = (index: number) => {
-        this.setState({
-            tabIndex: index
-        })
+        this.props.dispatch(setSliderTabIndex(index))
     }
 
     private getContainerWidth = () => {
@@ -80,13 +84,14 @@ class Home extends React.Component<IProps, IState> {
     render() {
         const weather = this.props.weatherState.weatherListToMap
         const unit = this.props.weatherState.unit
-        const {tabIndex, barChartWidth} = this.state
+        const tabIndex = this.props.uiState.sliderTabIndex
+        const {barChartWidth} = this.state
 
         if(!weather) return null
 
         return (
             <Container id={'container'} className={'home-container'}>
-                <Grid container spacing={1}>
+                <Grid container spacing={2}>
                     <Grid item xs={12}>
                         <CheckboxGroup/>
                     </Grid>
@@ -132,7 +137,7 @@ class Home extends React.Component<IProps, IState> {
 
 const mapServicesToProps: IMapServicesToProps = ({ weatherService }: IService) => ({ weatherService });
 
-const mapStateToProps = ({ weatherState }: IRootAppReducerState) => ({ weatherState });
+const mapStateToProps = ({ weatherState, uiState }: IRootAppReducerState) => ({ weatherState, uiState });
 
 export default connect(mapStateToProps)(
     withService(mapServicesToProps)(Home)
