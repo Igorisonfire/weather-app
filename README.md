@@ -1,6 +1,6 @@
 # Weather App
 
-[Start Weather App](https://igorisonfire.github.io/weather-app)
+[Start Weather App](https://igorisonfire.github.io/weather-app/#/)
 
 ![Weather App](src/shared/images/preview-weather-app.png)
 

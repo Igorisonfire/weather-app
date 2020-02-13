@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {BrowserRouter} from 'react-router-dom';
+import {BrowserRouter, HashRouter} from 'react-router-dom';
 import {Provider} from 'react-redux';
 
 import '@styles/global.scss';
@@ -14,10 +14,11 @@ import {HelmetSet} from "./components/presentational/helmet-set";
 ReactDOM.render((
     <Provider store={appStore}>
         <ServiceProvider value={service}>
-            <BrowserRouter basename={process.env.PUBLIC_URL}>
+            {/*HashRouter for github pages (BrowserRouter - preferable)*/}
+            <HashRouter basename={process.env.PUBLIC_URL}>
                 <HelmetSet/>
                 <App/>
-            </BrowserRouter>
+            </HashRouter>
         </ServiceProvider>
     </Provider>
 ), document.getElementById('root'));
