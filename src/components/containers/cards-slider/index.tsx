@@ -68,37 +68,7 @@ class CardSlider extends React.Component<IProps, IState> {
                 itemsGap: itemsGap,
                 sliderSize: sliderSize
             });
-
-            cardLine.addEventListener('touchstart', this.handleTouchStart, false);
-            cardLine.addEventListener('touchmove', this.handleTouchMove, false);
         }
-    };
-
-    //--- swipe mobile
-    private getTouches = (event: any) => {
-        return event.touches
-    };
-
-    private handleTouchStart = (event: any) => {
-        const firstTouch = this.getTouches(event)[0];
-        this.xDown = firstTouch.clientX;
-    };
-
-    private handleTouchMove = (event: any) => {
-        if(!this.xDown) return;
-
-        let xUp = event.touches[0].clientX;
-        let xDiff = this.xDown - xUp;
-
-        if (xDiff > 0) {
-            /* left swipe */
-            this.nextFunc()
-        } else {
-            /* right swipe */
-            this.prevFunc()
-        }
-
-        this.xDown = 0;
     };
 
     private prevFunc = () => {
