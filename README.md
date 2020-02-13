@@ -1,6 +1,6 @@
-# Redux Template
+# Weather App
 
-Starter Kit for Frontend applications
+[Start Weather App](https://igorisonfire.github.io/weather-app)
 
 ## Getting Started
 

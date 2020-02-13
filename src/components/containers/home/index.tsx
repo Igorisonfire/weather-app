@@ -2,7 +2,7 @@ import * as React from 'react';
 import {connect} from 'react-redux';
 import {Dispatch} from "redux";
 import Container from '@material-ui/core/Container';
-import { BarChart, Bar, LabelList, XAxis} from 'recharts';
+import {BarChart, Bar, LabelList, XAxis, YAxis, ResponsiveContainer} from 'recharts';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { debounce } from 'lodash'
@@ -32,7 +32,7 @@ interface IProps {
 }
 
 interface IState extends ISizes{
-    barChartWidth: number
+
 }
 
 interface ISizes {
@@ -40,10 +40,6 @@ interface ISizes {
 }
 
 class Home extends React.Component<IProps, IState> {
-
-    state: IState = {
-        barChartWidth: 0
-    }
 
     componentDidMount(): void {
         this.getWeather()
@@ -60,8 +56,6 @@ class Home extends React.Component<IProps, IState> {
             }));
             clearTimeout(start);
             preloaderGlobalState(false, 300);
-            this.getContainerWidth()
-            window.addEventListener('resize', debounce(this.getContainerWidth, 500));
         } catch (err) {
             console.error(err);
             preloaderGlobalState(false, 300);
@@ -70,16 +64,6 @@ class Home extends React.Component<IProps, IState> {
 
     private tapCard = (index: number) => {
         this.props.dispatch(setSliderTabIndex(index))
-    }
-
-    private getContainerWidth = () => {
-        const container: HTMLElement | null = document.getElementById('container');
-
-        if(container){
-            this.setState({
-                barChartWidth: container.offsetWidth - 32,
-            });
-        }
     }
 
     componentWillUnmount(): void {
@@ -92,13 +76,12 @@ class Home extends React.Component<IProps, IState> {
         const weather = this.props.weatherState.weatherListToMap
         const unit = this.props.weatherState.unit
         const tabIndex = this.props.uiState.sliderTabIndex
-        const {barChartWidth} = this.state
 
         if(!weather) return null
 
         return (
             <Container id={'container'} className={'home-container'}>
-                <Grid container spacing={1}>
+                <Grid container spacing={2}>
                     <Grid item xs={12}>
                         <CheckboxGroup/>
                     </Grid>
@@ -120,21 +103,22 @@ class Home extends React.Component<IProps, IState> {
                         </CardSlider>
                     </Grid>
                     <Grid item xs={12} >
-                        <BarChart
-                            baseValue={'dataMax'}
-                            width={barChartWidth}
-                            height={250}
-                            data={weather[tabIndex].segments}
-                        >
-                            <Bar maxBarSize={200} dataKey='main.temp' fill={"#7986cb"}>
-                                <LabelList
-                                    dataKey="main.temp"
-                                    position="top"
-                                    formatter={(temp) => Math.round(Number(temp)) + unit}
-                                />
-                            </Bar>
-                            <XAxis tickFormatter={dateToTime} dataKey={"dt_txt"}/>
-                        </BarChart>
+                        <ResponsiveContainer width='100%' minHeight={300} aspect={3}>
+                            <BarChart
+                                baseValue={'dataMax'}
+                                data={weather[tabIndex].segments}
+                            >
+                                <Bar maxBarSize={130} dataKey='main.temp' fill={"#FF8A65"}>
+                                    <LabelList
+                                        className={'fill-blue'}
+                                        dataKey="main.temp"
+                                        position="top"
+                                        formatter={(temp) => Math.round(Number(temp)) + unit}
+                                    />
+                                </Bar>
+                                <XAxis tickFormatter={dateToTime} dataKey={"dt_txt"}/>
+                            </BarChart>
+                        </ResponsiveContainer>
                     </Grid>
                 </Grid>
             </Container>
