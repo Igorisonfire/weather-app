@@ -2,7 +2,7 @@
 
 [Start Weather App](https://igorisonfire.github.io/weather-app)
 
-![Image of Yaktocat](https://github.com/Igorisonfire/weather-app/tree/master/src/shared/images/preview-weather-app.png)
+![Weather App](src/shared/images/preview-weather-app.png)
 
 ## Getting Started
 
