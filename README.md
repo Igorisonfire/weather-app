@@ -32,6 +32,15 @@ If you need to compile application for deployment
 npm run build
 ```
 
+### Tests
+
+```
+npm run test
+```
+```
+npm run cover
+```
+
 ## Built With
 
 * [React.js](https://github.com/facebook/react/) - Component Library
