@@ -1,5 +1,6 @@
 {
-  "name": "ProjectName",
+  "name": "WeatherApp",
+  "homepage": "https://igorisonfire.github.io/weather-app",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,7 +9,9 @@
     "start": "webpack-dev-server --config ./configs/webpack/dev.config.js",
     "test": "jest --ci",
     "test:local": "jest",
-    "cover": "jest --coverage"
+    "cover": "jest --coverage",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "author": "",
   "license": "ISC",
@@ -42,6 +45,7 @@
     "@types/args": "^3.0.0",
     "@types/enzyme": "^3.9.1",
     "@types/enzyme-adapter-react-16": "^1.0.5",
+    "@types/gh-pages": "^2.0.1",
     "@types/jest": "^23.3.9",
     "@types/jsdom": "^12.2.4",
     "@types/lodash": "^4.14.144",
@@ -62,6 +66,7 @@
     "enzyme-adapter-react-16": "^1.11.2",
     "file-loader": "^4.1.0",
     "fork-ts-checker-webpack-plugin": "^1.5.0",
+    "gh-pages": "^2.2.0",
     "html-webpack-plugin": "^4.0.0-beta.8",
     "jest": "^23.6.0",
     "jest-canvas-mock": "^2.1.0",

@@ -2,7 +2,7 @@ const static = 'static';
 const media = static + '/media';
 const fonts = static + '/fonts';
 const other = static + '/other';
-const dist = 'dist';
+const dist = 'build';
 const source = 'src';
 
 const aliasFonts = source + '/shared/fonts';
