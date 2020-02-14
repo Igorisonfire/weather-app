@@ -1,9 +1,11 @@
 import IWeather from '../reducers/weather/model'
 import {dateToDay} from './string-helpers'
+import {preloaderGlobalState} from './preloader-global-helper'
 
 
 export const weatherDataConversion = (weatherData: IWeather.ModelAPI) => {
 
+    const start = preloaderGlobalState(true, 300);
 
     let daysObj: any = {}
 
@@ -63,6 +65,9 @@ export const weatherDataConversion = (weatherData: IWeather.ModelAPI) => {
             ...item
         }
     })
+
+    clearTimeout(start);
+    preloaderGlobalState(false, 300);
 
     return finalDaysArr
 }

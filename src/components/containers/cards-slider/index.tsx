@@ -99,6 +99,7 @@ class CardSlider extends React.Component<IProps, IState> {
 
     componentWillUnmount(): void {
         this.props.dispatch(resetSliderTabIndex())
+        window.removeEventListener('resize', this.sliderFunc)
     }
 
     render() {
