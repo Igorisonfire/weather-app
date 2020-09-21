@@ -81,7 +81,7 @@
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "react-test-renderer": "^16.8.6",
     "sass-loader": "^7.1.0",
-    "terser-webpack-plugin": "^1.4.1",
+    "terser-webpack-plugin": "^4.2.2",
     "ts-jest": "^23.10.5",
     "ts-loader": "^6.0.4",
     "ts-mockito": "^2.3.1",
