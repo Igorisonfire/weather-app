@@ -8,6 +8,6 @@ export default class Paths {
     };
 
     static Weather = class  {
-        static GetWeather = (units: string) => base(`data/2.5/forecast?q=Munich,de&units=${units}&APPID=75f972b80e26f14fe6c920aa6a85ad57&cnt=40`)
+        static GetWeather = (units: string) => base(`data/2.5/forecast?q=Munich,de&units=${units}&appid=9620ff55a3b5a404d3e4404d37cd690b&cnt=40`)
     }
 }

@@ -1,5 +1,5 @@
 export const configuration = Object.freeze(
     {
-        remoteApi: 'https://cors-anywhere.herokuapp.com/http://api.openweathermap.org'
+        remoteApi: 'https://api.allorigins.win/get?url=http://api.openweathermap.org'
     }
 );
