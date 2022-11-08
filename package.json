@@ -46,7 +46,7 @@
     "@types/enzyme": "^3.9.1",
     "@types/enzyme-adapter-react-16": "^1.0.5",
     "@types/gh-pages": "^2.0.1",
-    "@types/jest": "^23.3.9",
+    "@types/jest": "^29.2.2",
     "@types/jsdom": "^12.2.4",
     "@types/lodash": "^4.14.144",
     "@types/moment": "^2.13.0",
